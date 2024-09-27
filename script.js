@@ -3,14 +3,14 @@ let resultDisplay = document.getElementById('result');
 let currentExpression = '';
 let ans = 0;
 
-function btnInput(value) {
-    // Check if the value is a number or an operator
-    if (!isNaN(value) || value === '.') {
-        currentExpression += value;  // Append number or decimal point
-    } else if (['+', '-', '*', '÷', 'sqrt('].includes(value)) {
-        currentExpression += value;  // Append operator
-    }
-    expressionDisplay.value = currentExpression;  // Update display
+function btnInput(number) {
+    currentExpression += number;
+    expressionDisplay.value = currentExpression;
+}
+
+function btnInput(operator) {
+    currentExpression += operator;
+    expressionDisplay.value = currentExpression;
 }
 
 function clearScreen() {
@@ -20,33 +20,34 @@ function clearScreen() {
 }
 
 function deleteLast() {
-    currentExpression = currentExpression.slice(0, -1);  // Remove last character
-    expressionDisplay.value = currentExpression;  // Update display
+    currentExpression = currentExpression.slice(0, -1);
+    expressionDisplay.value = currentExpression;
 }
 
 function calculateResult() {
     try {
         // Replace 'sqrt(' with 'Math.sqrt(' for proper evaluation
         let expression = currentExpression.replace(/sqrt\(/g, 'Math.sqrt(');
+
         // Safely evaluate the expression
         let result = eval(expression);
-        resultDisplay.value = result;  // Show result
+        resultDisplay.value = result;
         ans = result;  // Save the result as 'ans'
     } catch (e) {
-        resultDisplay.value = 'Error';  // Show error on evaluation failure
+        resultDisplay.value = 'Error';
     }
 }
 
 function insertAns() {
-    currentExpression += ans;  // Append last result to expression
-    expressionDisplay.value = currentExpression;  // Update display
+    currentExpression += ans;
+    expressionDisplay.value = currentExpression;
 }
 
 function toggleSign() {
     if (currentExpression.charAt(0) === '-') {
-        currentExpression = currentExpression.slice(1);  // Remove negative sign
+        currentExpression = currentExpression.slice(1); 
     } else {
-        currentExpression = '-' + currentExpression;  // Add negative sign
+        currentExpression = '-' + currentExpression;  
     }
-    expressionDisplay.value = currentExpression;  // Update display
+    expressionDisplay.value = currentExpression;
 }
